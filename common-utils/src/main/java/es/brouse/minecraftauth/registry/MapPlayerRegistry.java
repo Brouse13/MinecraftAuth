@@ -1,13 +1,12 @@
 package es.brouse.minecraftauth.registry;
 
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import es.brouse.minecraftauth.utils.ObjectFileReader;
 import es.brouse.minecraftauth.utils.ObjectFileWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,8 +56,7 @@ public class MapPlayerRegistry implements PlayerRegistry {
     public boolean load(String fileName) {
         try {
             // TODO Improve creation of file
-            Type mapType = new TypeToken<Map<Long, String>>() {}.getType();
-            registry.putAll(ObjectFileReader.readExternalFile(mapType, fileName));
+            registry.putAll(ObjectFileReader.readExternalFile(new TypeReference<Map<Long, String>>() {}, fileName));
         } catch (IOException e) {
             logger.error("Failed to load player registry from file: " + fileName, e);
             return false;

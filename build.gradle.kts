@@ -25,11 +25,18 @@ subprojects {
         testCompileOnly("org.projectlombok:lombok:1.18.34")
         testAnnotationProcessor("org.projectlombok:lombok:1.18.34")
 
-        // Gson for JSON serialization/deserialization
-        implementation("com.google.code.gson:gson:2.10.1")
+        implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0-rc1") {
+            exclude(group = "com.google.guava", module = "guava")
+        }
+        implementation("com.fasterxml.jackson.core:jackson-core:2.20.0-rc1") {
+            exclude(group = "com.google.guava", module = "guava")
+        }
+        implementation("com.fasterxml.jackson.core:jackson-annotations:3.0-rc5") {
+            exclude(group = "com.google.guava", module = "guava")
+        }
 
         // SLF4J for logging
-        implementation("ch.qos.logback:logback-classic:1.5.13")
+        implementation("org.slf4j:slf4j-api:2.0.9")
 
         // Junit5 for tests
         testImplementation(platform("org.junit:junit-bom:5.9.1"))

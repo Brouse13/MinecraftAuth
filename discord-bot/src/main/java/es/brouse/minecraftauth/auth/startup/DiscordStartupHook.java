@@ -1,11 +1,11 @@
 package es.brouse.minecraftauth.auth.startup;
 
 import es.brouse.minecraftauth.config.ConfigurationFile;
+import lombok.NonNull;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.events.session.ShutdownEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
-import org.jetbrains.annotations.NotNull;
 
 public interface DiscordStartupHook extends EventListener {
 
@@ -29,7 +29,7 @@ public interface DiscordStartupHook extends EventListener {
     void onShutdown();
 
     @Override
-    default void onEvent(@NotNull GenericEvent event) {
+    default void onEvent(@NonNull GenericEvent event) {
          if (event instanceof ReadyEvent) onStartup();
          if (event instanceof ShutdownEvent) onShutdown();
     }

@@ -1,9 +1,6 @@
 package es.brouse.minecraftauth.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import es.brouse.minecraftauth.config.CommandConfiguration;
-import es.brouse.minecraftauth.config.ConfigurationFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
 
 import java.io.FileWriter;
@@ -11,15 +8,7 @@ import java.io.IOException;
 
 @UtilityClass
 public class ObjectFileWriter {
-    private static final Gson gson;
-
-    static {
-        gson = new GsonBuilder()
-                .registerTypeHierarchyAdapter(ConfigurationFile.class, new CommandConfiguration())
-                .registerTypeAdapter(ConfigurationFile.class, new ConfigurationFile())
-                .disableHtmlEscaping()
-                .create();
-    }
+    private final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Writes a file from an external file system path.
@@ -30,10 +19,8 @@ public class ObjectFileWriter {
      * @throws IllegalStateException if the file name ends with ".json"
      */
     public static <T> void writeExternalFile(T object, String fileName) throws IOException {
-        // if (fileName.endsWith(".json")) throw new IllegalStateException("File should be a valid json");
+        if (!fileName.endsWith(".json")) throw new IllegalStateException("File should be a valid json");
 
-        try(FileWriter writer = new FileWriter(fileName)) {
-           gson.toJson(object, writer);
-        }
+        mapper.writeValue(new FileWriter(fileName), object);
     }
 }
