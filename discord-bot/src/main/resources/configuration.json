@@ -1,0 +1,18 @@
+{
+  "guild_id": "",
+  "token": "",
+  "verified_role": "",
+  "admin_roles": [
+    "",
+    ""
+  ],
+  "command": {
+    "name": "auth",
+    "description": "Authenticate your Minecraft account",
+    "usage": "/auth <username>",
+    "aliases": [
+      "login",
+      "signin"
+    ]
+  }
+}
